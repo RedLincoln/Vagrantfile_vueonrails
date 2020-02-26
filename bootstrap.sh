@@ -23,5 +23,32 @@ rvm use --default --install --quiet-curl 2.5.3
 
 su -c "bash /vagrant/vagrant_rvm.sh" vagrant
 
+echo "Installing docker"
+
+# Set up the repository
+apt-get update
+apt-get -y install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+apt-key fingerprint 0EBFCD88
+add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+# Install Docker Engine - Community
+apt-get update
+apt-get install -y docker-ce="5:19.03.6~3-0~ubuntu-xenial" docker-ce-cli="5:19.03.6~3-0~ubuntu-xenial" containerd.io
+
+usermod -a -G docker vagrant 
+
+apt-get install -y libpq-dev
+docker run --name some-postgres -p 5432:5432 \
+    -e POSTGRES_PASSWORD=password -d postgres:9.6
+
 apt-get autoremove -y
 
