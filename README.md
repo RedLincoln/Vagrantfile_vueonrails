@@ -26,6 +26,15 @@ Continúa con levantar la máquina y provisionarla
 $ vagrant up # Puede tardar varios minutos
 ```
 
+## Gemset
+
+Existe el gemset `app_gemset` el cual tiene:
+
+1. Rails 5.2.1
+2. webpacker 3.5
+
+Puede ser util para crear un nuevo proyecto `Rails`.
+
 ## ¿Y para trabajar?
 
 1. Establecer la redirección de puertos desde la máquina anfitrión a la MV para poder utilizar el navegador desde la máquina anfitrión.
@@ -45,7 +54,10 @@ vagrant@...:~$ bundle install
  Otra forma es crear en `/vagrant` el proyecto utilizando el siguiente comando.
 
 ```
-rails new first_app --webpack=vue
+vagrant@...:~$ cd /vagrant
+vagrant@...:~$ rvm gemset use app_gemset
+vagrant@...:~$ rails new first_app --webpack=vue --database=postgresql
+vagrant@...:~$ cd first_app
 ```
 
 3. PostreSQL fue instalado con usuario "postgres' y password "password".
@@ -57,7 +69,14 @@ username: postgres
 password: password
 ```
 
-4. Comprueba la aplicación
+4. Asegurate de estar en el `gemset` correcto (app_gemset si no se ha creado otro).
+
+```
+vagrant@...:~$ rvm gemset list
+vagrant@...:~$ rvm gemset use app_gemset # cambia gemset si es necesario
+```
+
+5. Comprueba la aplicación
 lanzando el servidor *RoR* en la MV y accede desde la máquina anfitrión
 ```
 vagrant@...:~$ rails db:create
