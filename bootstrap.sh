@@ -12,6 +12,8 @@ apt-add-repository -y ppa:rael-gc/rvm
 apt-get update
 apt-get -y install rvm
 
+rvm reset 
+
 echo "Installing yarn"
 wget -q https://github.com/yarnpkg/yarn/releases/download/v1.2.1/yarn_1.2.1_all.deb
 dpkg -i yarn_1.2.1_all.deb
