@@ -19,6 +19,8 @@ wget -q https://github.com/yarnpkg/yarn/releases/download/v1.2.1/yarn_1.2.1_all.
 dpkg -i yarn_1.2.1_all.deb
 rm yarn_1.2.1_all.deb
 
+yarn global add @vue/cli
+
 source "/etc/profile.d/rvm.sh"
 
 rvm use --default --install --quiet-curl 2.5.3
@@ -41,6 +43,14 @@ add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
+
+
+# Installing Chrome for integration test
+
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+apt-get update
+apt-get install -y google-chrome-stable 
 
 # Install Docker Engine - Community
 apt-get update
